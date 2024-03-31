@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Authors</h1>
+  
+<ul>
+  {% for x in all_authors %}
+    <li>{{ x.firstname }} {{ x.lastname }} {{ x.email }} {{ x.password }}</li>
+  {% endfor %}
+</ul>
+
+</body>
+</html>

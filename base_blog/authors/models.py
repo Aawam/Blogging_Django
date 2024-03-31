@@ -2,5 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Authors(models.Model):
-    email = models.CharField(max_length=255)
-    password = models.CharField(max_length=225)
+    firstname = models.CharField(max_length=255)
+    lastname = models.CharField(max_length=225)
+    email = models.EmailField(null=True)
+    password = models.TextField(null=True)
