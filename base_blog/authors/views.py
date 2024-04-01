@@ -5,9 +5,9 @@ from .models import Authors
 
 # Create your views here.
 def authors(request):
-    the_authors = Authors.objects.all().values()
-    template = loader.get_template('all_authors.html')
+    Author = Authors.objects.all().values()
+    template = loader.get_template('all_auth.html')
     context = {
-        'The Authors': the_authors,
+        'Authors': Author,
     }
     return HttpResponse(template.render(context, request))

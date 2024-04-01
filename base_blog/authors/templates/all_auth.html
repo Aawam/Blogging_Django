@@ -2,11 +2,14 @@
 <html>
 <body>
 
-<h1>Auth</h1>
+<h1>Authors</h1>
   
 <ul>
-  {% for x in the_authors %}
+  {% for x in Authors %}
+    <p>
     <li>{{ x.firstname }} {{ x.lastname }}</li>
+    <li>{{ x.email }}</li>
+    </p>
   {% endfor %}
 </ul>
 
