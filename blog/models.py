@@ -1,4 +1,5 @@
 from django.db import models
+from users.models import CustomUser
 
 # Create your models here.
 
@@ -15,11 +16,15 @@ class Tag(models.Model):
         return self.title
 
 class Blog_Article(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(
+        max_length=100, 
+        primary_key=True, 
+        
+    )
     categories = models.ForeignKey(Category, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag)
-    author = models.CharField(max_length=50)
-    date_created = models.DateField()
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    date_created = models.DateField(auto_now_add=True)
     content = models.TextField(null=True)
 
     def __str__(self):
