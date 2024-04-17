@@ -4,8 +4,8 @@ from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from blog.models import Category
 
-from .models import Blog_Article
-from .forms import Blog_Form
+from blog.models import Blog_Article
+from blog.forms import Blog_Form
 
 from core.settings import BASE_DIR
 

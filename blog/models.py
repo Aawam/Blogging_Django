@@ -24,7 +24,7 @@ class Blog_Article(models.Model):
     categories = models.ForeignKey(Category, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag)
     author = models.ForeignKey("users.CustomUser", on_delete=models.CASCADE)
-    date_created = models.DateField(auto_now_add=True)
+    date_created = models.DateField(auto_now_add=True,editable=True)
     content = models.TextField(null=True)
 
     def __str__(self):

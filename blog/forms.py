@@ -7,7 +7,6 @@ class Blog_Form(forms.ModelForm):
         model = Blog_Article
 
         fields = [
-            'Title',
-            'Author',
-            'Date Created',
+            'title',
+            'author',
         ]
