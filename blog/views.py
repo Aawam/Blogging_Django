@@ -37,13 +37,15 @@ def category_list(request):
     return render(request, "index.html", context=context)
 
 def create_view(request, test):
-    
-    context = {}
+    articles = Blog_Article.objects.all()
 
     form = Blog_Form(request.POST or None)
     if form.is_valid():
         form.save
         
-    context['form']=form
+    context = {
+        'articles' : articles,
+        'form' : form,
+    }    
     return render(request, 'create_view.html', context)
 
