@@ -22,7 +22,7 @@ def index(request):
 
     return render(request, 'index.html')
 
-def display_data(request):
+#def display_data(request):
     path = BASE_DIR / "out.xlsx"
     data = pd.read_excel(path)
     return JsonResponse(data.to_dict())
@@ -37,19 +37,13 @@ def category_list(request):
     return render(request, "index.html", context=context)
 
 def create_view(request, test):
-    title = Blog_Article.title
-    author = Blog_Article.author
-    date = Blog_Article.date_created
-
-    context = {
-        "Title" : title,
-        "Author" : author,
-        "Date" : date
-    }
+    
+    context = {}
 
     form = Blog_Form(request.POST or None)
     if form.is_valid():
         form.save
+        
     context['form']=form
     return render(request, 'create_view.html', context)
 
