@@ -8,5 +8,11 @@ class Blog_Form(forms.ModelForm):
 
         fields = [
             'title',
+            'categories',
+            'tags',
             'author',
+            'content',
+        ]
+        exclude = [
+            'date_created'
         ]
