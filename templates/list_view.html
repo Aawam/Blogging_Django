@@ -1,16 +1,27 @@
+<!-- list_view.html -->
 
-
-<div class="main">
- 
-    {% for data in dataset %}.
- 
-    {{ data.title }}<br/>
-    {{ data.categories }}<br/>
-    {{ data.tags }}<br/>
-    {{ data.author }}<br/>
-    {{ data.date_created }}<br/>
-    <hr/>
- 
-    {% endfor %}
- 
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Articles</title>
+</head>
+<body>
+    <div class="main">
+        <h1>List of Articles</h1>
+        <ul>
+            {% for article in articles %}
+                <li>
+                    <strong>Title:</strong> {{ article.title }}<br>
+                    <strong>Categories:</strong> {{ article.categories }}<br>
+                    <strong>Tags:</strong> {{ article.tags }}<br>
+                    <strong>Author:</strong> {{ article.author }}<br>
+                    <strong>Date Created:</strong> {{ article.date_created }}<br>
+                    <strong>Content:</strong> {{ article.content }}<br>
+                </li>
+                <br/>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

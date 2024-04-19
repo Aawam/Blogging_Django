@@ -44,25 +44,67 @@ from .models import Blog_Article
 from .forms import Blog_Form
 import time
 
+def list_view(request):
+    article = Blog_Article.objects.all()
+    return render(request, 'blog/list_view.html', {'context' : article})
+
+def detail_view(request, pk):
+    article = Blog_Article.objects.get(pk=pk)
+    return render(request, 'blog/detail_view.html', {'content' : article})
+
+def create_article(request):
+    if request.method == 'POST':
+        form = Blog_Form(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('list_view')
+    else:
+        form = Blog_Form()
+    return render(request, 'blog/article_form.html', {'form' : form})
+
+def update_article(request, pk):
+    update = Blog_Article.get(pk=pk)
+    if request.method == 'POST':
+        form = Blog_Form(request.POST, instance=update)
+        if form.is_valid():
+            form.save()
+            return redirect('post_list')
+    else:
+        form = Blog_Form(instance=update)
+    return render(request, 'article_form.html', {'form' : form})
+
+def article_delete(request, pk):
+    delete = Blog_Article.get(pk=pk)
+    if request.method == 'POST':
+        form = Blog_Form(request.POST, instance=delete)
+        if form.is_valid():
+            form.save()
+            return redirect('post_list')
+    else:
+        form = Blog_Form(instance=delete)
+    return render(request, 'blog/article_delete.html', {'delete' : delete})
+
+
+"""
 def create_view(request):
     articles = Blog_Article.objects.all()
 
     form = Blog_Form(request.POST)
     if form.is_valid():
         form.save()
-        return redirect('success_url')
+        return redirect('success.html')
     else:
         form = Blog_Form()   
     context = {
         'articles' : articles,
         'form' : form,
     }    
-    return render(request, 'create_view.html', context)
+    return render(request, 'create_view.html', context=context)
 
 def success_view(request):
-    render(request, 'success.html')
+    render(request, 'success')
     time.sleep(3)
-    return redirect('create_view')
+    return redirect('create_view.html')
 
 def list_view(request):
 
@@ -72,17 +114,14 @@ def list_view(request):
         'articles' : articles,
     }
 
-    return render(request, "list_view.html", context)
+    return render(request, "list_view.html", context=context)
 
-def detail_view(request, id):
+def detail_view(request, title):
+    
+    context ={}
+    context["data"] = Blog_Article.objects.get(id = title)
+    return render(request, "detail_view.html", context=context)
 
-    articles = Blog_Article.objects.get(id = id)
-
-    context = {
-        'articles' : articles,
-    }
-
-    return render(request, "detail_view.html", context)
 
 def delete_view(request, id):
     context = {}
@@ -94,3 +133,5 @@ def delete_view(request, id):
         return HttpResponseRedirect("/")
     
     return render(request, "delete_view.html", context)
+
+"""
