@@ -44,45 +44,41 @@ from .models import Blog_Article
 from .forms import Blog_Form
 import time
 
-def list_view(request):
-    article = Blog_Article.objects.all()
-    return render(request, 'blog/list_view.html', {'context' : article})
+def article_list(request):
+    articles = Blog_Article.objects.all()
+    return render(request, 'article_list.html', {'contents' : articles})
 
-def detail_view(request, pk):
+def article_detail(request, pk):
     article = Blog_Article.objects.get(pk=pk)
-    return render(request, 'blog/detail_view.html', {'content' : article})
+    return render(request, 'detail_view.html', {'content' : article})
 
-def create_article(request):
+def article_create(request):
     if request.method == 'POST':
         form = Blog_Form(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('list_view')
+            return redirect('article_list')
     else:
         form = Blog_Form()
-    return render(request, 'blog/article_form.html', {'form' : form})
+    return render(request, 'article_form.html', {'form' : form})
 
-def update_article(request, pk):
-    update = Blog_Article.get(pk=pk)
+def article_update(request, pk):
+    article = Blog_Article.get(pk=pk)
     if request.method == 'POST':
-        form = Blog_Form(request.POST, instance=update)
+        form = Blog_Form(request.POST, instance=article)
         if form.is_valid():
             form.save()
-            return redirect('post_list')
+            return redirect('article_list')
     else:
-        form = Blog_Form(instance=update)
+        form = Blog_Form(instance=article)
     return render(request, 'article_form.html', {'form' : form})
 
 def article_delete(request, pk):
-    delete = Blog_Article.get(pk=pk)
+    article = Blog_Article.get(pk=pk)
     if request.method == 'POST':
-        form = Blog_Form(request.POST, instance=delete)
-        if form.is_valid():
-            form.save()
-            return redirect('post_list')
-    else:
-        form = Blog_Form(instance=delete)
-    return render(request, 'blog/article_delete.html', {'delete' : delete})
+        article.delete()
+        return redirect('article_list')
+    return render(request, 'article_delete.html', {'content' : article})
 
 
 """
@@ -106,7 +102,7 @@ def success_view(request):
     time.sleep(3)
     return redirect('create_view.html')
 
-def list_view(request):
+def article_list(request):
 
     articles = Blog_Article.objects.all()
 
@@ -114,7 +110,7 @@ def list_view(request):
         'articles' : articles,
     }
 
-    return render(request, "list_view.html", context=context)
+    return render(request, "article_list.html", context=context)
 
 def detail_view(request, title):
     
