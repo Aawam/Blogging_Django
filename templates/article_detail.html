@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ article.title }}</title>
+    <title>{{ content.title }}</title>
 </head>
 <body>
-    <h1>{{ article.title }}</h1>
-    <p>{{ article.content }}</p>
-    <p>Created at: {{ article.created_at }}</p>
-    <a href="{% url 'article_update' pk=post.pk %}">Edit</a>
-    <form action="{% url 'article_delete' pk=post.pk %}" method="article">
+    <h1>{{ content.title }}</h1>
+    <p>{{ content.content }}</p>
+    <p>Created at: {{ content.created_at }}</p>
+    <a href="{% url 'article_update' pk=content.pk %}">Edit</a>
+    <form action="{% url 'article_delete' pk=content.pk %}" method="post">
         {% csrf_token %}
         <button type="submit">Delete</button>
     </form>

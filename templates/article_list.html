@@ -10,9 +10,9 @@
     <h1>Blog List</h1>
     <ul>
         {% for content in contents %}
-            <li><a href="{% url 'detail_view.html' pk=post.pk %}">{{ article.title }}</a></li>
+            <li><a href="{% url 'article_detail' pk=content.pk %}">{{ content.title }}</a></li>
         {% endfor %}
     </ul>
-    <a href="{% url 'create_article' %}">Create New Article</a>
+    <a href="{% url 'article_form' %}">Create New Article</a>
 </body>
 </html>

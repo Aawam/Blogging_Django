@@ -50,7 +50,7 @@ def article_list(request):
 
 def article_detail(request, pk):
     article = Blog_Article.objects.get(pk=pk)
-    return render(request, 'detail_view.html', {'content' : article})
+    return render(request, 'article_detail.html', {'content' : article})
 
 def article_create(request):
     if request.method == 'POST':

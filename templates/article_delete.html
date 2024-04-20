@@ -7,11 +7,11 @@
     <title>Delete Article</title>
 </head>
 <body>
-    <h1>Are you sure you want to delete "{{ article.title }}"?</h1>
+    <h1>Are you sure you want to delete "{{ content.title }}"?</h1>
     <form method="post">
         {% csrf_token %}
         <button type="submit">Confirm Delete</button>
     </form>
-    <a href="{% url 'article_detail' pk=post.pk %}">Cancel</a>
+    <a href="{% url 'article_detail' pk=content.pk %}">Cancel</a>
 </body>
 </html>
