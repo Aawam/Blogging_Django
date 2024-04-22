@@ -8,7 +8,7 @@
 <body>
     <h1>{{ content.title }}</h1>
     <p>{{ content.content }}</p>
-    <p>Created at: {{ content.created_at }}</p>
+    <p>Created at: {{ content.date_created }}</p>
     <a href="{% url 'article_update' pk=content.pk %}">Edit</a>
     <form action="{% url 'article_delete' pk=content.pk %}" method="post">
         {% csrf_token %}

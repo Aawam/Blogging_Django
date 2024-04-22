@@ -63,7 +63,7 @@ def article_create(request):
     return render(request, 'article_form.html', {'form' : form})
 
 def article_update(request, pk):
-    article = Blog_Article.get(pk=pk)
+    article = get_object_or_404(Blog_Article, pk=pk)
     if request.method == 'POST':
         form = Blog_Form(request.POST, instance=article)
         if form.is_valid():
@@ -74,7 +74,7 @@ def article_update(request, pk):
     return render(request, 'article_form.html', {'form' : form})
 
 def article_delete(request, pk):
-    article = Blog_Article.get(pk=pk)
+    article = get_object_or_404(Blog_Article, pk=pk)
     if request.method == 'POST':
         article.delete()
         return redirect('article_list')
