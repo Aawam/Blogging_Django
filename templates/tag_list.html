@@ -1,0 +1,18 @@
+<!-- .html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tags List</title>
+</head>
+<body>
+    <h1>Tags List</h1>
+    <ul>
+        {% for tag in form %}
+            <li>{{ tag.title }}</a></li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'tag_create' %}">Create New Article</a>
+</body>
+</html>
