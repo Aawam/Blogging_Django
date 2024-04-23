@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog List</title>
+    <title>Category List</title>
 </head>
 <body>
-    <h1>Blog List</h1>
+    <h1>Category List</h1>
     <ul>
-        {% for category in form %}
+        {% for category in context %}
             <li>{{ category.title }}</a></li>
         {% endfor %}
     </ul>
-    <a href="{% url 'category_create' %}">Create New Article</a>
+    <a href="{% url 'categories_create' %}">Create New Category</a>
 </body>
 </html>

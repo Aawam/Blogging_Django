@@ -9,10 +9,10 @@
 <body>
     <h1>Tags List</h1>
     <ul>
-        {% for tag in form %}
+        {% for tag in context %}
             <li>{{ tag.title }}</a></li>
         {% endfor %}
     </ul>
-    <a href="{% url 'tag_create' %}">Create New Article</a>
+    <a href="{% url 'tags_create' %}">Create New Article</a>
 </body>
 </html>

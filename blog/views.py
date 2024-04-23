@@ -56,22 +56,22 @@ def categories_create(request):
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-            return redirect('category_list')
+            return redirect('categories_list')
     else:
         form = Category_Form()
     context = {
         'form' : form
     }
-    return render(request, 'category_form.html', context=context)
+    return render(request, 'category_create.html', context=context)
 
-def categories_update(request, pk):
+def categories_update(request, id):
 
-    categories = get_object_or_404(Category_Form, pk=pk)
+    category = get_object_or_404(Category_Form, id=id)
 
-    form = Category_Form(request.POST, instance=categories)
+    form = Category_Form(request.POST, instance=category)
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect("/"+pk)
+        return HttpResponseRedirect("/"+id)
 
     """
     if request.method == 'POST':
@@ -116,13 +116,13 @@ def tags_create(request):
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-            return redirect('tag_list')
+            return redirect('tags_list')
     else:
         form = Tag_Form()
     context = {
         'form' : form
     }
-    return render(request, 'tag_form.html', context=context)
+    return render(request, 'tag_create.html', context=context)
 
 def tags_update(request, pk):
 
