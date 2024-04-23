@@ -13,6 +13,8 @@
             <li><a href="{% url 'article_detail' pk=content.pk %}">{{ content.title }}</a></li>
         {% endfor %}
     </ul>
-    <a href="{% url 'article_create' %}">Create New Article</a>
+    <a href="{% url 'article_create' %}">Create New Article</a><br/>
+    <a href="{% url 'categories_list' %}">Categories</a><br/>
+    <a href="{% url 'tags_list' %}">Tags</a>
 </body>
 </html>

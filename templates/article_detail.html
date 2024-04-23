@@ -9,7 +9,7 @@
     <h1>{{ content.title }}</h1>
     <p>{{ content.content }}</p>
     <p>{{ content.author }}</p>
-    <p>Created at: {{ content.date_created }}</p>
+    <p>Created at: {{ content.date_created }}</p><br/>
     <a href="{% url 'article_update' pk=content.pk %}">Edit</a>
     <form action="{% url 'article_delete' pk=content.pk %}" method="post">
         {% csrf_token %}

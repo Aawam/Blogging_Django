@@ -47,7 +47,7 @@ import time
 def categories_list(request):
     category = Category.objects.all()
     context = {
-        'category' : category
+        'categories' : category
     }
     return render(request, 'category_list.html', context=context)
 
@@ -64,14 +64,14 @@ def categories_create(request):
     }
     return render(request, 'category_create.html', context=context)
 
-def categories_update(request, id):
+def categories_update(request, pk):
 
-    category = get_object_or_404(Category_Form, id=id)
+    category = get_object_or_404(Category_Form, pk=pk)
 
     form = Category_Form(request.POST, instance=category)
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect("/"+id)
+        return HttpResponseRedirect("/"+pk)
 
     """
     if request.method == 'POST':
@@ -107,7 +107,7 @@ def categories_delete(request, pk):
 def tags_list(request):
     tag = Tag.objects.all()
     context = {
-        'tag' : tag
+        'tags' : tag
     }
     return render(request, 'tag_list.html', context=context)
 
@@ -164,50 +164,60 @@ def tags_delete(request, pk):
 
 #---------------------------
 def article_list(request):
-    articles = Blog_Article.objects.all()
-    return render(request, 'article_list.html', {'contents' : articles})
+    article = Blog_Article.objects.all()
+    context = {
+        'contents' : article
+    }
+    return render(request, 'article_list.html', context=context)
 
 def article_detail(request, pk):
     article = Blog_Article.objects.get(pk=pk)
-    return render(request, 'article_detail.html', {'content' : article})
+    context = {
+        'content' : article
+    }
+    return render(request, 'article_detail.html', context=context)
 
 def article_create(request):
-    form = Blog_Form(request.POST)
     if request.method == 'POST':
+        form = Blog_Form(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('article_list')
+            return HttpResponseRedirect("/")
     else:
         form = Blog_Form()
-    return render(request, 'article_form.html', {'form' : form})
+    context = {
+        'form': form
+    }
+    return render(request, 'article_form.html', context=context)
 
 def article_update(request, pk):
+
     article = get_object_or_404(Blog_Article, pk=pk)
+
+    form = Blog_Form(request.POST, instance=article)
+
     if request.method == 'POST':
-        form = Blog_Form(request.POST, instance=article)
         if form.is_valid():
             form.save()
-            return redirect('article_list')
-    elif request.method == 'GET':
+            return HttpResponseRedirect("/"+pk)
+    #elif request.method == 'GET':
         #form = article(request.GET, instance=article)
-        return redirect('article_update.html')
-    else:
-        form = Blog_Form(instance=article)
-    return render(request, 'article_detail.html', {'form' : form})
+        #return redirect('article_update.html')
+
+    context = {
+        'form' : form
+    }
+    return render(request, 'article_update.html', context=context)
 
 def article_delete(request, pk):
     article = get_object_or_404(Blog_Article, pk=pk)
     if request.method == 'POST':
         article.delete()
         return redirect('article_list')
-    return render(request, 'article_delete.html', {'content' : article})
-
-
-
-
-
-
-
+    context = {
+        'content' : article
+    }
+    return render(request, 'article_delete.html', context=context)
 
 """
 def create_view(request):

@@ -1,6 +1,16 @@
 from django import forms
 from.models import Blog_Article, Category, Tag
 
+class Category_Form(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ["title",]
+
+class Tag_Form(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = ["title"]
+
 class Blog_Form(forms.ModelForm):
     
     class Meta:
@@ -17,12 +27,4 @@ class Blog_Form(forms.ModelForm):
             'date_created'
         ]
 
-class Category_Form(forms.ModelForm):
-    class Meta:
-        model = Category
-        fields = ["title",]
 
-class Tag_Form(forms.ModelForm):
-    class Meta:
-        model = Tag
-        fields = ["title"]
