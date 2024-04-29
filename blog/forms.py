@@ -1,5 +1,5 @@
 from django import forms
-from.models import Blog_Article, Category, Tag
+from .models import *
 
 class Category_Form(forms.ModelForm):
     class Meta:
@@ -9,7 +9,7 @@ class Category_Form(forms.ModelForm):
 class Tag_Form(forms.ModelForm):
     class Meta:
         model = Tag
-        fields = ["title"]
+        fields = ["title",]
 
 class Blog_Form(forms.ModelForm):
     
@@ -23,6 +23,9 @@ class Blog_Form(forms.ModelForm):
             'author',
             'content',
         ]
+
+
+
         exclude = [
             'date_created'
         ]

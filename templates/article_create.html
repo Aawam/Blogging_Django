@@ -6,13 +6,18 @@
     <title>Create New Article</title>
 </head>
 <body>
-    <h1>Create New Article</h1>
-    <form method="post">
-        {% csrf_token %}
-
-        {{ form.as_p}}
-
-        <button type="submit">Submit</button>
-    </form>
+    <div class="main">
+        <!-- Create a Form -->
+        <form method="POST">
+            <!-- Security token by Django -->
+            {% csrf_token %}
+     
+            <!-- form as paragraph -->
+            {{ form.as_p }}
+     
+            <input type="submit" value="Update">
+        </form>
+        
+    </div>
 </body>
 </html>

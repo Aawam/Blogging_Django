@@ -17,8 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from blog.views import article_list, article_detail, article_create, article_update, article_delete
-from blog.views import categories_list, categories_create, categories_update, categories_delete
-from blog.views import tags_list, tags_create, tags_update, tags_delete
+from blog.views import categories_list, categories_create, categories_delete #categories_update
+from blog.views import tags_list, tags_create, tags_delete #tags_update
 
 urlpatterns = [
     #------------------
@@ -31,13 +31,13 @@ urlpatterns = [
     #------------------
     path('categories', categories_list, name='categories_list'),    
     path('categories/new/', categories_create, name='categories_create'),
-    path('categories/<str:pk>/edit/', categories_update, name='categories_update'),
+    #path('categories/<str:pk>/edit/', categories_update, name='categories_update'),
     path('categories/<str:pk>/delete/', categories_delete, name='categories_delete'),
 
     #------------------
     path('tags', tags_list, name='tags_list'),    
     path('tags/new/', tags_create, name='tags_create'),
-    path('tags/<str:pk>/edit/', tags_update, name='tags_update'),
+    #path('tags/<str:pk>/edit/', tags_update, name='tags_update'),
     path('tags/<str:pk>/delete/', tags_delete, name='tags_delete'),
 
     #path('content/')
