@@ -1,41 +1,4 @@
-#import pandas as pd
-"""
-from django.shortcuts import render
-from django.http import JsonResponse, HttpResponse
-from blog.models import Category
 
-from blog.models import Blog_Article
-from blog.forms import Blog_Form
-
-from core.settings import BASE_DIR
-
-# Create your views here.
-
-def index(request):
-    # olah model
-    if request.method == 'POST':
-        data: dict[str, str] = {
-            "nama": "awam",
-            "age": 20
-        }
-        return JsonResponse(data)
-
-    return render(request, 'index.html')
-
-#def display_data(request):
-    path = BASE_DIR / "out.xlsx"
-    data = pd.read_excel(path)
-    return JsonResponse(data.to_dict())
-
-# Category Views
-def category_list(request):
-    categories = Category.objects.all()
-    context = {
-        "categories": categories
-    }
-
-    return render(request, "index.html", context=context)
-"""
 
 from django.shortcuts import render, redirect
 from django.shortcuts import (get_object_or_404,
@@ -131,21 +94,6 @@ def tags_create(request):
     }
     return render(request, 'tag_create.html', context=context)
 
-#def tags_update(request, pk):
-
-    tag = get_object_or_404(Tag_Form, pk=pk)
-
-    form = Tag_Form(request.POST, instance=tag)
-    if form.is_valid():
-        
-        form.save()
-        return HttpResponseRedirect("/"+pk)
-    
-    context = {
-        'form' : form
-    }
-
-    return render(request, 'tag_update.html', context=context)
 
 def tags_delete(request, pk):
     
@@ -164,18 +112,21 @@ def tags_delete(request, pk):
 
 def article_create(request):
 
-    form = Blog_Form(request.POST)
-
     if request.method == 'POST':
+        form = Blog_Form(data=request.POST)
+
+        print(form.is_valid())
         if form.is_valid():
             form.save()
             return redirect('article_list')
+
     else:
         form = Blog_Form()
     
     context = {
         'form': form
     }
+    print(request.GET.get('title'))
     return render(request, 'article_create.html', context=context)
 
 def article_list(request):
@@ -183,19 +134,12 @@ def article_list(request):
     context = {
         'contents' : article
     }
-
-    for obj in article:
-        print("----")
-        print(obj.title)
-        print(obj.author)
-        print(obj.categories)
-        print(obj.tags)
-
+    
     return render(request, 'article_list.html', context=context)
 
 def article_detail(request, pk):
     
-    articles = Blog_Article.objects.get(pk = pk)
+    articles = get_object_or_404(Blog_Article, pk=pk)
 
     context = {
         'content' : articles

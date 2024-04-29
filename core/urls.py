@@ -16,37 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from blog.views import article_list, article_detail, article_create, article_update, article_delete
-from blog.views import categories_list, categories_create, categories_delete #categories_update
-from blog.views import tags_list, tags_create, tags_delete #tags_update
+
+from .views import index
 
 urlpatterns = [
-    #------------------
-    path('', article_list, name='article_list'),
-    path('content/<str:pk>/', article_detail, name='article_detail'),
-    path('content/new/', article_create, name='article_create'),
-    path('content/<str:pk>/edit/', article_update, name='article_update'),
-    path('content/<str:pk>/delete/', article_delete, name='article_delete'),
-    
-    #------------------
-    path('categories', categories_list, name='categories_list'),    
-    path('categories/new/', categories_create, name='categories_create'),
-    #path('categories/<str:pk>/edit/', categories_update, name='categories_update'),
-    path('categories/<str:pk>/delete/', categories_delete, name='categories_delete'),
-
-    #------------------
-    path('tags', tags_list, name='tags_list'),    
-    path('tags/new/', tags_create, name='tags_create'),
-    #path('tags/<str:pk>/edit/', tags_update, name='tags_update'),
-    path('tags/<str:pk>/delete/', tags_delete, name='tags_delete'),
-
-    #path('content/')
-    
-    #path('create/', create_view, name='create_view'),
-    #path('success/', success_view, name='success'),
-    #path('detailview/<title>/', article_detail ),
-    #path('<id>/delete', delete_view),
-    
+    path('', index),
+    path('content/', include('blog.urls')),
     path('admin/', admin.site.urls),
-    #path("users/")
+
 ]
