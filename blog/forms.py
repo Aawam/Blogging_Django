@@ -5,11 +5,17 @@ class Category_Form(forms.ModelForm):
     class Meta:
         model = Category
         fields = ["title",]
+        widgets = {
+            'title' : forms.TextInput,
+        }
 
 class Tag_Form(forms.ModelForm):
     class Meta:
         model = Tag
         fields = ["title",]
+        widgets = {
+            'title' : forms.TextInput,
+        }
 
 class Blog_Form(forms.ModelForm):
     
@@ -24,7 +30,12 @@ class Blog_Form(forms.ModelForm):
             'content',
         ]
 
-
+        widgets = {
+            'tags' : forms.CheckboxSelectMultiple,
+            'author' : forms.Select,
+            'categories' : forms.Select,
+            'content' : forms.Textarea
+        }
 
         exclude = [
             'date_created'

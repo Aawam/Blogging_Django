@@ -120,16 +120,9 @@ def tags_list(request):
 
 def tags_create(request):
     form = Tag_Form(request.POST)
-    data = request.POST.get('title')
-    tags = Tag.objects.filter(title=data).first()
-
     if request.method == 'POST':
         if form.is_valid():
-            if form.cleaned_data['title'] == str(tags):
-                print("Data Duplikat")
-                return redirect("tags_list")
-            else:
-                form.save()
+            form.save()
             return redirect('tags_list')
     else:
         form = Tag_Form()
@@ -196,7 +189,7 @@ def article_list(request):
         print(obj.title)
         print(obj.author)
         print(obj.categories)
-        print(obj.tags.get(id=1))
+        print(obj.tags)
 
     return render(request, 'article_list.html', context=context)
 
