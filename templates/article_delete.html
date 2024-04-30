@@ -1,17 +1,24 @@
-<!-- blog/templates/blog/post_confirm_delete.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete Article</title>
-</head>
-<body>
-    <h1>Are you sure you want to delete "{{ content.title }}"?</h1>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  Delete {{ content.title }}
+{% endblock title %}
+
+{% block content %}
+<div style="position: fixed; margin: 20px">
+    <h2>
+        Are you sure you want to delete <br>
+        "{{ content.title }}"?
+    </h2>
     <form method="post">
         {% csrf_token %}
-        <button type="submit">Confirm Delete</button>
+        <input class="btn btn-outline-danger" type="submit" value="Delete">
+        <a
+            href="{% url 'article_detail' pk=content.pk %}"
+            class="btn btn-outline-secondary" type="submit" value="Cancel">
+            Cancel
+        </a>
     </form>
-    <a href="{% url 'article_detail' pk=content.pk %}">Cancel</a>
-</body>
-</html>
+</div>
+{% endblock content %}

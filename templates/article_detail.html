@@ -1,20 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ content.title }}</title>
-</head>
-<body>
-    <h1>{{ content.title }}</h1>
-    <p>{{ content.content }}</p>
-    <p>{{ content.author }}</p>
-    <p>Created at: {{ content.date_created }}</p><br/>
-    <a href="{% url 'article_update' pk=content.pk %}">Edit</a>
-    <form action="{% url 'article_delete' pk=content.pk %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Delete</button>
-    </form>
-    <a href="{% url 'article_list' %}">Back to list</a>
-</body>
-</html>
+<!-- .html -->
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  {{ content.title }}
+{% endblock title %}
+
+{% block content %}
+
+{% include 'components/styles.css' %}
+
+<link rel="stylesheet" href='/templates/components/styles.css'>
+
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-10" style="text-align: left;">
+            <h2>
+                {{ content.title }}
+            </h2>
+            <p>
+                Author: <strong>{{ content.author }}</strong><br>
+                Created at: {{ content.date_created}}
+            </p>
+        </div>
+        <div class="col-2 d-grid gap-4" style="margin-top:5px;margin-bottom:5px;">
+            <a 
+                href="{% url 'article_update' pk=content.pk %}"
+                class="btn btn-outline-warning"
+                style="border-radius: 15px; border-width: 10px; margin: 2px; border-width: 2px;"
+                type="button">
+                update
+            </a>
+            <a 
+                href="{% url 'article_delete' pk=content.pk %}"
+                class="btn btn-outline-danger"
+                style="border-radius: 15px; border-width: thin; margin: 2px; border-width: 2px;"
+                type="button">
+                delete
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container-md" style="padding-top: 20px;">
+    <p>______________________________________________________________</p>
+    <p>
+        {{ content.content }}
+    </p>
+</div>
+{% endblock content %}

@@ -10,103 +10,73 @@ import time
 #----------------------------
 
 def categories_list(request):
-    category = Category.objects.all()
-    context = {
-        'categories' : category
-    }
-    return render(request, 'category_list.html', context=context)
-
-def categories_create(request):
-    form = Category_Form(request.POST)
-    data = request.POST.get('title')
-    category = Category.objects.filter(title=data).first()
-    if request.method == 'POST':
-        if form.is_valid():
-            if form.cleaned_data['title'] == str(category):
-                print("Data Duplikat")
-                return redirect("categories_list")
-            else:
-                form.save()
-            return redirect('categories_list')
-    else:
-        form = Category_Form()
-    context = {
-        'form' : form
-    }
-    return render(request, 'category_create.html', context=context)
-
-def categories_update(request, pk):
-
-    category = get_object_or_404(Category_Form, pk=pk)
-
-    form = Category_Form(request.POST, instance=category)
-    if form.is_valid():
-        form.save()
-        return HttpResponseRedirect("/"+pk)
-
-    """
-    if request.method == 'POST':
-        
-        if form.is_valid():
-            form.save()
-            return redirect('category_list')    
-    else:
-        form = Blog_Form(instance=categories)
-    """
+    context = {}
     
-    context = {
-        'form' : form
-    }
+    category = Category.objects.all()
+    form = Category_Form()
 
-    return render(request, 'category_update.html', context=context)
-
-def categories_delete(request, pk):
-
-    category = get_object_or_404(Category, pk=pk)
-
+    context['category'] = category
+    
     if request.method == 'POST':
-        category.delete()
-        return redirect('categories_list')
-    context = {
-        'category' : category
-    }
-    return render(request, 'category_delete.html', context=context)
+        if 'save' in request.POST:
+            pk = request.POST.get('save')
+            if not pk:
+                form = Category_Form(request.POST)
+            else:
+                category_instance = Category.objects.get(id=pk)
+                form = Category_Form(request.POST, instance=category_instance)
+            form.save()
+            form = Category_Form()
+
+        elif 'delete' in request.POST:
+            pk = request.POST.get('delete')
+            category = Category.objects.get(id=pk)
+            category.delete()
+
+        elif 'edit' in request.POST:
+            pk = request.POST.get('edit')
+            category_instance = Category.objects.get(id=pk)
+            form = Category_Form(instance=category_instance)
+
+        
+    context.update({'categories': category, 'form': form})
+
+    return render(request, 'category_list.html', context=context)
 
 #---------------------------
 
 def tags_list(request):
+    context = {}
+    
     tag = Tag.objects.all()
-    context = {
-        'tags' : tag
-    }
-    return render(request, 'tag_list.html', context=context)
+    form = Tag_Form()
 
-def tags_create(request):
-    form = Tag_Form(request.POST)
+    context['tag'] = tag
+    
     if request.method == 'POST':
-        if form.is_valid():
+        if 'save' in request.POST:
+            pk = request.POST.get('save')
+            if not pk:
+                form = Tag_Form(request.POST)
+            else:
+                tag_instance = Tag.objects.get(id=pk)
+                form = Tag_Form(request.POST, instance=tag_instance)
             form.save()
-            return redirect('tags_list')
-    else:
-        form = Tag_Form()
-    context = {
-        'form' : form
-    }
-    return render(request, 'tag_create.html', context=context)
+            form = Tag_Form()
 
+        elif 'delete' in request.POST:
+            pk = request.POST.get('delete')
+            tag = Tag.objects.get(id=pk)
+            tag.delete()
 
-def tags_delete(request, pk):
-    
-    tag = get_object_or_404(Tag, pk=pk)
+        elif 'edit' in request.POST:
+            pk = request.POST.get('edit')
+            tag_instance = Tag.objects.get(id=pk)
+            form = Tag_Form(instance=tag_instance)
 
-    if request.method == 'POST':
-        tag.delete()
-        return redirect("tags_delete")
-    
-    context = {
-        'tag' : tag
-    }
-    return render(request, 'tags_delete.html', context=context)
+    context.update({'tag': tag, 'form': form})
+
+    return render(request, 'tag_list.html', context=context)
 
 #---------------------------
 
@@ -134,7 +104,7 @@ def article_list(request):
     context = {
         'contents' : article
     }
-    
+
     return render(request, 'article_list.html', context=context)
 
 def article_detail(request, pk):
@@ -155,11 +125,9 @@ def article_update(request, pk):
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect("/"+pk)
-    #elif request.method == 'GET':
-        #form = article(request.GET, instance=article)
-        #return redirect('article_update.html')
-
+            return redirect("/content/"+pk)
+    else:
+        form=Blog_Form(instance=article)
     context = {
         'form' : form
     }

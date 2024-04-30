@@ -1,0 +1,28 @@
+/* styles.css */
+
+/* Body styles */
+
+/* h1 {
+    color: black;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.container {
+    background-color: blue;
+}
+
+.button{
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 0px black greenyellow
+} */
+
+
+/* Custom Styles */
+.header-blog{
+    font-size: 24px;
+    border-bottom: 2px solid black; 
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
