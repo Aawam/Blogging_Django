@@ -5,6 +5,7 @@ from django.shortcuts import (get_object_or_404,
                               HttpResponseRedirect)
 from .models import Blog_Article, Category, Tag
 from .forms import Blog_Form, Category_Form, Tag_Form
+from .templates import *
 import time
 
 #----------------------------
