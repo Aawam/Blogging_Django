@@ -1,6 +1,6 @@
 <!-- .html -->
 
-{% extends 'base.html' %}
+{% extends 'blog/base.html' %}
 {% load crispy_forms_tags %}
 
 {% block title %}
@@ -27,7 +27,7 @@
         <tr>
           <th scope="row">{{ forloop.counter }}</th>
           <td scope="col">
-            <a href="{% url 'article_detail' pk=content.pk %}">
+            <a href="{% url 'blog:article_detail' pk=content.pk %}">
               {{ content.title }}
             </a>
           </td>

@@ -2,6 +2,8 @@ from django.urls import path
 
 from .views import *
 
+app_name = 'blog'
+
 urlpatterns = [
     path('', article_list, name='article_list'),
     path('<str:pk>/', article_detail, name='article_detail'),

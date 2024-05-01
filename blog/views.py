@@ -42,7 +42,7 @@ def categories_list(request):
         
     context.update({'categories': category, 'form': form})
 
-    return render(request, 'category_list.html', context=context)
+    return render(request, 'blog/category_list.html', context=context)
 
 #---------------------------
 
@@ -77,7 +77,7 @@ def tags_list(request):
 
     context.update({'tag': tag, 'form': form})
 
-    return render(request, 'tag_list.html', context=context)
+    return render(request, 'blog/tag_list.html', context=context)
 
 #---------------------------
 
@@ -98,7 +98,7 @@ def article_create(request):
         'form': form
     }
     print(request.GET.get('title'))
-    return render(request, 'article_create.html', context=context)
+    return render(request, 'blog/article_create.html', context=context)
 
 def article_list(request):
     article = Blog_Article.objects.all()
@@ -106,7 +106,7 @@ def article_list(request):
         'contents' : article
     }
 
-    return render(request, 'article_list.html', context=context)
+    return render(request, 'blog/article_list.html', context=context)
 
 def article_detail(request, pk):
     
@@ -115,7 +115,7 @@ def article_detail(request, pk):
     context = {
         'content' : articles
     }
-    return render(request, 'article_detail.html', context=context)
+    return render(request, 'blog/article_detail.html', context=context)
 
 def article_update(request, pk):
 
@@ -132,7 +132,7 @@ def article_update(request, pk):
     context = {
         'form' : form
     }
-    return render(request, 'article_update.html', context=context)
+    return render(request, 'blog/article_update.html', context=context)
 
 def article_delete(request, pk):
 
@@ -144,7 +144,7 @@ def article_delete(request, pk):
     context = {
         'content' : article
     }
-    return render(request, 'article_delete.html', context=context)
+    return render(request, 'blog/article_delete.html', context=context)
 
 
 

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'blog/base.html' %}
 {% load crispy_forms_tags %}
 
 {% block title %}
@@ -15,7 +15,7 @@
         {% csrf_token %}
         <input class="btn btn-outline-danger" type="submit" value="Delete">
         <a
-            href="{% url 'article_detail' pk=content.pk %}"
+            href="{% url 'blog:article_detail' pk=content.pk %}"
             class="btn btn-outline-secondary" type="submit" value="Cancel">
             Cancel
         </a>
