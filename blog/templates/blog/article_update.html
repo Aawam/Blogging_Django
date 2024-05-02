@@ -1,0 +1,27 @@
+<!-- .html -->
+
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  {{ content.title }} update
+{% endblock title %}
+
+{% block content %}
+<div class="main container container-fluid">
+    <h1 class="text-center">
+        {{ content.title }} Update
+    </h1>
+    <!-- Create a Form -->
+    <form method="POST">
+        <!-- Security token by Django -->
+        {% csrf_token %}
+ 
+        <!-- form as paragraph -->
+        {{ form | crispy }}
+ 
+        <input class="btn btn-success" type="submit" value="Update">
+    </form>
+    
+</div>
+{% endblock content %}

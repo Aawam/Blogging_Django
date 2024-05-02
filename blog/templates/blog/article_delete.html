@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  Delete {{ content.title }}
+{% endblock title %}
+
+{% block content %}
+<div style="position: fixed; margin: 20px">
+    <h2>
+        Are you sure you want to delete <br>
+        "{{ content.title }}"?
+    </h2>
+    <form method="post">
+        {% csrf_token %}
+        <input class="btn btn-outline-danger" type="submit" value="Delete">
+        <a
+            href="{% url 'blog:article_detail' pk=content.pk %}"
+            class="btn btn-outline-secondary" type="submit" value="Cancel">
+            Cancel
+        </a>
+    </form>
+</div>
+{% endblock content %}

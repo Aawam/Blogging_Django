@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+    create Post
+{% endblock title %}
+
+
+{% block content %}
+<div class="main container container-fluid">
+    <h2 class="header-blog">
+        Article Create
+    </h2>
+    
+    <!-- Create a Form -->
+    <form method="POST">
+        <!-- Security token by Django -->
+        {% csrf_token %}
+ 
+        <!-- form as paragraph -->
+        {{ form | crispy }}
+ 
+        <input class="btn btn-primary" type="submit" value="Create">
+    </form>
+</div>
+{% endblock content %}
+    

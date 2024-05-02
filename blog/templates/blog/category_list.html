@@ -1,0 +1,53 @@
+<!-- .html -->
+
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  Categories List
+{% endblock title %}
+
+{% block content %}
+<h2 class="header-blog">
+    Category List
+</h2>
+<div class="container" style="padding-top: 20px">
+    <table class="table">
+    <form method="post" action="{% url 'blog:categories_list' %}">
+        <thead>
+            <tr>
+                <th scope="col">List Categories</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for title in category %}
+            <tr>
+                {% if form.instance.id == title.id %}
+                {% include 'blog/save.html' %}
+                {% else %}
+
+                <td>{{ title.title }}</td>
+                <td>
+                    <button class="btn btn-outline-warning" formnovalidate name="edit" value="{{ title.id }}">Edit</button>
+                    <button class="btn btn-outline-danger" formnovalidate name="delete" value="{{ title.id }}">Delete</button>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+            
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    <strong>Add New Category</strong>
+                </td>
+            </tr>
+            {% if not form.instance.id %}
+            <tr>
+                {% include 'blog/save.html' %}
+            </tr>
+            {% endif %}
+        </tbody>
+    </form>
+    </table> 
+</div>
+{% endblock content %}
