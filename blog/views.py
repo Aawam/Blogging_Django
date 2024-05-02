@@ -35,7 +35,7 @@ def categories_list(request):
             category.delete()
 
         elif 'edit' in request.POST:
-            pk = request.POST.get('edit')
+            pk = request.POST.get('edit'    )
             category_instance = Category.objects.get(id=pk)
             form = Category_Form(instance=category_instance)
 
@@ -75,7 +75,7 @@ def tags_list(request):
             tag_instance = Tag.objects.get(id=pk)
             form = Tag_Form(instance=tag_instance)
 
-    context.update({'tag': tag, 'form': form})
+    context.update({'tags': tag, 'form': form})
 
     return render(request, 'blog/tag_list.html', context=context)
 
@@ -89,7 +89,7 @@ def article_create(request):
         print(form.is_valid())
         if form.is_valid():
             form.save()
-            return redirect('article_list')
+            return redirect('/')
 
     else:
         form = Blog_Form()
@@ -140,7 +140,7 @@ def article_delete(request, pk):
 
     if request.method == 'POST':
         article.delete()
-        return redirect('article_list')
+        return redirect('/')
     context = {
         'content' : article
     }

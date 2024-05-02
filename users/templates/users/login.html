@@ -4,15 +4,12 @@
 
     <form method="POST" autocomplete="off">
 
-        {% csrf_token %}
+        {% csrf_token % }
 
-        {{loginform.as_p}}
+        {{ loginform.as_p }}
 
-        <input type="submit" value="Login"/>
-
+        <input type="submit" value="Register">
 
     </form>
-
-
 
 </html>
