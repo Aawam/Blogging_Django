@@ -1,15 +1,22 @@
-<html>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
-    <h1> Register now! </h1>
+{% block title %}
+    Register Now
+{% endblock title %}
+    
 
-    <form method="POST" autocomplete="off">
 
-        {% csrf_token % }
-
-        {{ registerform.as_p }}
-
-        <input type="submit" value="Register">
-
-    </form>
-
-</html>
+{% block content %}
+    <h1 class="title">
+        Register Now
+        <form method="POST" autocomplete="off">
+    
+            {{ registerform | crispy }}
+    
+            <input type="submit" value="Register">
+    
+        </form>
+    </h1>
+{% endblock content %}
+    

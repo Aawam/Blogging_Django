@@ -7,6 +7,7 @@ from django.contrib.auth.hashers import make_password
 from .managers import CustomUserManager
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
+
     email = models.EmailField(_("email address"), unique=True)
     name = models.CharField(max_length=50)
     is_staff = models.BooleanField(default=False)
