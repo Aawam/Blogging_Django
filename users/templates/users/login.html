@@ -1,6 +1,15 @@
-<html>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
-    <h1> Login here </h1>
+{% block title %}
+    Register Now
+{% endblock title %}
+    
+
+
+{% block content %}
+
+    <h2 class="header-blog"> Login here </h2>
 
     <form method="POST" autocomplete="off">
 
@@ -11,5 +20,3 @@
         <input type="submit" value="Register">
 
     </form>
-
-</html>

@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
@@ -8,15 +9,17 @@
 
 
 {% block content %}
-    <h1 class="title">
+    <h2 class="header-blog">
         Register Now
-        <form method="POST" autocomplete="off">
-    
-            {{ registerform | crispy }}
-    
-            <input type="submit" value="Register">
-    
-        </form>
-    </h1>
+    </h2>
+    <form method="POST" autocomplete="off">
+            
+        {% csrf_token %}
+
+        {{ registerform | crispy }}
+        
+        <input class="btn btn-outline-primary" type="submit" value="Register">
+
+    </form>
 {% endblock content %}
     

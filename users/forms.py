@@ -47,6 +47,11 @@ class CreateUserForm(UserCreationForm):
 
         model = get_user_model()
         fields = ['email', 'password1', 'password2']
+        widgets = {
+            'email' : forms.EmailInput(),
+            'password1' : forms.PasswordInput(),
+            'password2' : forms.PasswordInput(),
+        }
 
 # - > Authentication a User 
 
