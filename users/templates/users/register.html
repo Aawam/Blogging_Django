@@ -1,3 +1,5 @@
+<!doctype html>
+
 
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
@@ -16,7 +18,7 @@
             
         {% csrf_token %}
 
-        {{ registerform | crispy }}
+        {{ form | crispy }}
         
         <input class="btn btn-outline-primary" type="submit" value="Register">
 
