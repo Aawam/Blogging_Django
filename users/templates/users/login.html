@@ -9,15 +9,15 @@
 {% endblock title %}
 
 {% block content %}
-    <h2 class="header-blog"> Login here </h2>
+    <h2 class="header-blog"> 
+        Login here 
+    </h2>
+    <form method="POST" autocomplete="off">
 
-    <form action="" method="POST" autocomplete="off">
-
-        {% csrf_token % }
+        {% csrf_token %}
 
         {{ loginform | crispy }}
 
         <input type="submit" value="Register">
     </form>
-
-{% endblock content}
+{% endblock content %}
