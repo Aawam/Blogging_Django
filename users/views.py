@@ -59,7 +59,6 @@ def dashboard(request):
     return render(request, 'users/dashboard.html')
 
 def logout(request):
-
     auth.logout(request)
 
     return redirect('users/index.html')

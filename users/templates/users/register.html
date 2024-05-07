@@ -15,7 +15,7 @@
         Register Now
     </h2>
     <form method="POST" autocomplete="off">
-            
+
         {% csrf_token %}
 
         {{ registerform | crispy }}
