@@ -13,7 +13,7 @@ from django.contrib.auth import authenticate, login, logout
 
 def homepage(request):
 
-    return render(request, 'crm/index.html')
+    return render(request, 'users/index.html')
 
 def register(request):
 
@@ -27,12 +27,12 @@ def register(request):
 
             form.save()
 
-            return redirect("my-login")
+            return redirect("login")
 
 
-    context = {'registerform':form}
+    context = {'form':form}
 
-    return render(request, 'crm/register.html', context=context)
+    return render(request, 'users/register.html', context=context)
 
 
 
@@ -58,9 +58,9 @@ def login(request):
                 return redirect("dashboard")
 
 
-    context = {'loginform':form}
+    context = {'form':form}
 
-    return render(request, 'crm/my-login.html', context=context)
+    return render(request, 'users/login.html', context=context)
 
 
 def logout(request):
@@ -71,10 +71,10 @@ def logout(request):
 
 
 
-@login_required(login_url="my-login")
+@login_required(login_url="login")
 def dashboard(request):
 
-    return render(request, 'crm/dashboard.html')
+    return render(request, 'users/dashboard.html')
 
 
 
