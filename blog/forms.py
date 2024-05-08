@@ -26,7 +26,6 @@ class Blog_Form(forms.ModelForm):
             'title',
             'categories',
             'tags',
-            'author',
             'content',
         ]
 
@@ -38,6 +37,7 @@ class Blog_Form(forms.ModelForm):
 
         exclude = [
             'date_created'
+            'author'
         ]
 
 

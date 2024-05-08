@@ -17,7 +17,9 @@
         <thead>
             <tr>
                 <th scope="col">List Categories</th>
+                {% if request.user.is_superuser %}
                 <th scope="col">Action</th>
+                {% endif %} 
             </tr>
         </thead>
         <tbody>
@@ -28,10 +30,18 @@
                 {% else %}
 
                 <td>{{ title.title }}</td>
-                <td>
-                    <button class="btn btn-outline-warning" formnovalidate name="edit" value="{{ title.id }}">Edit</button>
-                    <button class="btn btn-outline-danger" formnovalidate name="delete" value="{{ title.id }}">Delete</button>
-                </td>
+                <div>
+                    {% if request.user.is_superuser %}
+                    <td>
+                        <button class="btn btn-outline-warning" formnovalidate name="edit" value="{{ title.id }}">Edit</button>
+                        <button class="btn btn-outline-danger" formnovalidate name="delete" value="{{ title.id }}">Delete</button>
+                    </td>
+                    {% else %}
+                    <td>
+
+                    </td>
+                    {% endif %}
+                </div>
                 {% endif %}
             </tr>
             {% endfor %}
