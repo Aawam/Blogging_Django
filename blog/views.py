@@ -1,11 +1,10 @@
 
 
 from django.shortcuts import render, redirect
-from django.shortcuts import (get_object_or_404,
-                              HttpResponseRedirect)
+from django.shortcuts import (get_object_or_404, HttpResponseRedirect)
+from django.contrib.auth.decorators import login_required
 from .models import Blog_Article, Category, Tag
 from .forms import Blog_Form, Category_Form, Tag_Form
-from .templates import *
 import time
 
 #----------------------------
@@ -81,15 +80,18 @@ def tags_list(request):
 
 #---------------------------
 
+@login_required(login_url="/users/login")
 def article_create(request):
 
     if request.method == 'POST':
-        form = Blog_Form(data=request.POST)
+        form = Blog_Form(data=request.POST, files=request.FILES)
 
         print(form.is_valid())
         if form.is_valid():
-            form.save()
-            return redirect('/')
+            blog_article = form.save(commit=False)
+            blog_article.author = request.user
+            blog_article.save()
+            return redirect('/article/')
 
     else:
         form = Blog_Form()
@@ -98,6 +100,7 @@ def article_create(request):
         'form': form
     }
     print(request.GET.get('title'))
+
     return render(request, 'blog/article_create.html', context=context)
 
 def article_list(request):
@@ -111,6 +114,12 @@ def article_list(request):
 def article_detail(request, pk):
     
     articles = get_object_or_404(Blog_Article, pk=pk)
+
+    query_params = request.GET
+    for key, value in query_params.items():
+        print(f"Query parameter '{key}' has value '{value}'")
+    
+    print(query_params)
 
     context = {
         'content' : articles

@@ -1,27 +1,28 @@
-<!doctype html>
-
-
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
+
 {% block title %}
-    Register Now
+    Create Users
 {% endblock title %}
-    
 
 
 {% block content %}
+<div class="main container container-fluid">
     <h2 class="header-blog">
-        Register Now
+        Create User
     </h2>
-    <form method="POST" autocomplete="off">
-
+    
+    <!-- Create a Form -->
+    <form class="form-with-validation" method="POST">
+        <!-- Security token by Django -->
         {% csrf_token %}
-
-        {{ registerform | crispy }}
-        
-        <input class="btn btn-outline-primary" type="submit" value="Register">
-
+ 
+        <!-- form as paragraph -->
+        {{ form | crispy }}
+ 
+        <input class="btn btn-primary" type="submit" value="submit">
     </form>
+</div>
 {% endblock content %}
     

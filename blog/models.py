@@ -1,5 +1,5 @@
 from django.db import models
-from users.models import CustomUser
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -22,7 +22,7 @@ class Blog_Article(models.Model):
     )
     categories = models.ForeignKey(Category, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag)
-    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     date_created = models.DateField(auto_now_add=True,editable=True)
     content = models.TextField(null=True)
     

@@ -22,24 +22,36 @@
               <li><a class="dropdown-item" href="{% url 'blog:tags_list' %}">Tags List</a></li>
             </ul>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Users
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'users:register' %}">Sign Up</a></li>
-              <li><a class="dropdown-item" href="{% url 'users:login' %}">Login</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="{% url 'users:dashboard' %}">My dashboard</a></li>              
-            </ul>
-          </li>
-        </ul>
+        </li>
+      </ul>
 
-
+      <div>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
       </div>
+      <a> | </a>
+      <div>
+        {% if user.is_authenticated %}
+          <form class="logout" action="{% url 'users:logout' %}" method="POST">
+            {% csrf_token %}
+            <button class="logout-button" aria-label="User Logout" title="Bye bye">
+              Sign out
+            </button>
+          </form>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'users:register' %}">
+            Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'users:login' %}">
+            Login</a>
+        </li>
+        {% endif %}
+          
+      </div>
     </div>
-  </nav>
+  </div>
+</nav>

@@ -32,7 +32,6 @@ class Blog_Form(forms.ModelForm):
 
         widgets = {
             'tags' : forms.CheckboxSelectMultiple,
-            'author' : forms.Select,
             'categories' : forms.Select,
             'content' : forms.Textarea
         }
