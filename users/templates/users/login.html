@@ -3,29 +3,40 @@
 
 
 {% block title %}
-    User Login
+    Login User
 {% endblock title %}
 
 
 {% block content %}
 <div class="main container container-fluid">
     <h2 class="header-blog">
-        User Login
+        Login User
     </h2>
     
     <!-- Create a Form -->
     <form class="form-with-validation" method="POST">
         <!-- Security token by Django -->
         {% csrf_token %}
- 
+
         <!-- form as paragraph -->
         {{ form | crispy }}
 
-        {% if.request.GET.next %}
-            <input type="hidden" name="next" value="{{ request.GET.next }}">
+        {% if request.GET.next %}
+        <!-- Include 'next' URL if provided in the query parameters -->
+        <input type="hidden" name="next" value="{{ request.GET.next }}">
         {% endif %}
- 
-        <input class="btn btn-primary" type="submit" value="submit">
+        <ul class="nav nav-pills nav-fill">
+            <li class="nav-item">
+                <input class="btn btn-outline-success" type="submit" value="Submit">
+            </li>
+            <li class="nav-item"></li>
+            <li class="nav-item"></li>
+            <li class="nav-item">
+                <a href="{% url 'home' %}" class="btn btn-outline-danger">
+                    Go Back
+                </a>
+            </li>
+        </ul>
     </form>
 </div>
 {% endblock content %}

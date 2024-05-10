@@ -103,23 +103,27 @@ def article_create(request):
 
     return render(request, 'blog/article_create.html', context=context)
 
+@login_required(login_url="/users/login")
 def article_list(request):
-    article = Blog_Article.objects.all()
-    context = {
-        'contents' : article
-    }
 
-    return render(request, 'blog/article_list.html', context=context)
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            # If user is a superuser, retrieve all articles
+            user_article = Blog_Article.objects.all()
+        else:
+            # If user is not a superuser, retrieve only their articles
+            user_article = Blog_Article.objects.filter(author=request.user)        
+        context = {
+            'contents' : user_article
+        }
+        return render(request, 'blog/article_list.html', context=context)
+    else:
+        return render(request, 'users:login')
+    
 
 def article_detail(request, pk):
     
     articles = get_object_or_404(Blog_Article, pk=pk)
-
-    query_params = request.GET
-    for key, value in query_params.items():
-        print(f"Query parameter '{key}' has value '{value}'")
-    
-    print(query_params)
 
     context = {
         'content' : articles
