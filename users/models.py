@@ -11,7 +11,7 @@ class CustomUser(AbstractUser):
         ('other', 'Other')
     ]
 
-    username = models.CharField(primary_key=True)
+    username = models.CharField(primary_key=True, max_length=100)
     email = models.EmailField(unique=True)
     full_name = models.CharField(max_length=100)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, blank=True)
