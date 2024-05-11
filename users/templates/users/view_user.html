@@ -50,16 +50,16 @@
               </tr>
             </thead>
             <tbody>
-              {% for article in user_articles %}
+              {% for blog.content in blog.contents %}
       
               <tr>
                 <th scope="row">{{ forloop.counter }}</th>
                 <td scope="col">
                   <a href="{% url 'blog:article_detail' pk=content.pk %}">
-                    {{ article.title }}
+                    {{ content.title }}
                   </a>
                 </td>
-                <td scope="col">{{ article.date_created }}</td>
+                <td scope="col">{{ content.date_created }}</td>
               </tr>
               {% endfor %}        
             </tbody>

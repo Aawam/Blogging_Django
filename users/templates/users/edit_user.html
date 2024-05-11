@@ -3,14 +3,15 @@
 
 
 {% block title %}
-    Create Users
+    Edit User
 {% endblock title %}
 
 
 {% block content %}
+
 <div class="main container container-fluid">
     <h2 class="header-blog">
-        Create User
+        Edit
     </h2>
     
     <!-- Create a Form -->
@@ -20,7 +21,11 @@
  
         <!-- form as paragraph -->
         {{ form | crispy }}
-        
+
+        {% if request.GET.next %}
+        <!-- Include 'next' URL if provided in the query parameters -->
+        <input type="hidden" name="next" value="{{ request.GET.next }}">
+        {% endif %}
         <ul class="nav nav-pills nav-fill">
             <li class="nav-item">
                 <input class="btn btn-outline-success" type="submit" value="Submit">
@@ -35,5 +40,5 @@
         </ul>
     </form>
 </div>
+
 {% endblock content %}
-    

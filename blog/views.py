@@ -1,11 +1,10 @@
 
 
 from django.shortcuts import render, redirect
-from django.shortcuts import (get_object_or_404,
-                              HttpResponseRedirect)
+from django.shortcuts import (get_object_or_404, HttpResponseRedirect)
+from django.contrib.auth.decorators import login_required
 from .models import Blog_Article, Category, Tag
 from .forms import Blog_Form, Category_Form, Tag_Form
-from .templates import *
 import time
 
 #----------------------------
@@ -81,15 +80,18 @@ def tags_list(request):
 
 #---------------------------
 
+@login_required(login_url="/users/login")
 def article_create(request):
 
     if request.method == 'POST':
-        form = Blog_Form(data=request.POST)
+        form = Blog_Form(data=request.POST, files=request.FILES)
 
         print(form.is_valid())
         if form.is_valid():
-            form.save()
-            return redirect('/')
+            blog_article = form.save(commit=False)
+            blog_article.author = request.user
+            blog_article.save()
+            return redirect('/article/')
 
     else:
         form = Blog_Form()
@@ -98,15 +100,26 @@ def article_create(request):
         'form': form
     }
     print(request.GET.get('title'))
+
     return render(request, 'blog/article_create.html', context=context)
 
+@login_required(login_url="/users/login")
 def article_list(request):
-    article = Blog_Article.objects.all()
-    context = {
-        'contents' : article
-    }
 
-    return render(request, 'blog/article_list.html', context=context)
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            # If user is a superuser, retrieve all articles
+            user_article = Blog_Article.objects.all()
+        else:
+            # If user is not a superuser, retrieve only their articles
+            user_article = Blog_Article.objects.filter(author=request.user)        
+        context = {
+            'contents' : user_article
+        }
+        return render(request, 'blog/article_list.html', context=context)
+    else:
+        return render(request, 'users:login')
+    
 
 def article_detail(request, pk):
     

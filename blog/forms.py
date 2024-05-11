@@ -26,19 +26,18 @@ class Blog_Form(forms.ModelForm):
             'title',
             'categories',
             'tags',
-            'author',
             'content',
         ]
 
         widgets = {
             'tags' : forms.CheckboxSelectMultiple,
-            'author' : forms.Select,
             'categories' : forms.Select,
             'content' : forms.Textarea
         }
 
         exclude = [
             'date_created'
+            'author'
         ]
 
 

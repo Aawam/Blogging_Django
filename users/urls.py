@@ -1,12 +1,22 @@
-from django.urls import path
+from django.contrib import admin
+from django.urls import path, include
 
-from .views import *
+from .views import dashboard_view, register_view, \
+    login_view, logout_view, \
+        delete_user, edit_user, \
+        user_view
 
+app_name = 'users'
 
 urlpatterns = [
-    path('', homepage, name=""),
-    path('register/', register, name="register"),
-    path('login/', login , name="login"),
-    path('dashboard/', dashboard , name="dashboard"),
-    path('logout/', logout, name="logout"),
+
+    path('dashboard/', dashboard_view, name='dashboard'),
+    path('register/', register_view, name='register'),
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
+    path('<int:pk>/', user_view, name='user_view'),
+    path('<int:pk>/delete/', delete_user, name='delete_user'),
+    path('<int:pk>/edit/', edit_user, name='edit_user')
+
 ]
+
