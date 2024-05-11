@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
-def CustomUser(AbstractUser):
+class CustomUser(AbstractUser):
 
     GENDER_CHOICES = [
         ('male', 'Male'),
