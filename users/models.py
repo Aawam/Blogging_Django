@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, PermissionsMixin
 
 # Create your models here.
 
@@ -12,7 +12,7 @@ class CustomUser(AbstractUser):
     ]
 
     username = models.CharField(primary_key=True, max_length=100)
-    email = models.EmailField(unique=True)
+    email = models.EmailField()
     full_name = models.CharField(max_length=100)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, blank=True)
     phone_number = models.CharField(max_length=15, blank=True)
@@ -21,5 +21,10 @@ class CustomUser(AbstractUser):
     photo = models.ImageField(upload_to='user_photos/', blank=True)
     about = models.TextField(blank=True)
 
+    # Email login
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+    
     def __str__(self):
         return self.username
+    
