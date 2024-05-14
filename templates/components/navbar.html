@@ -38,7 +38,7 @@
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
           </li>
-
+          
           {% if user.is_authenticated %}
             <li class="nav-item dropdown">
               <a class="nav-link" aria-current="page" data-bs-toggle="dropdown" role="button">
@@ -46,16 +46,25 @@
               </a>
               <ul class="dropdown-menu">
                 {% csrf_token %}
-                <form class="logout" action="{% url 'users:logout' %}" method="POST">
+                <li>
+                  <form>
+
+                  </form>
+                </li>
+                <li>
+                  <form class="logout" action="{% url 'users:logout' %}" method="POST">
                   <button class="btn btn-outline-warning" type="submit" value="signout" aria-label="User Logout" title="See you soon">
                     Signout
                   </button>
-                </form>
-                 <form class="delete" action="{% url 'users:delete_user' user.pk %}" method="POST">
+                  </form>
+                </li>
+                <li>
+                  <form class="delete" action="{% url 'users:delete_user' user.pk %}" method="POST">
                   <button class="btn btn-outline-warning" type="submit" value="delete" aria-label="User Delete" title="Bye bye">
                     Delete User
                   </button>
-                </form>
+                  </form>
+                </li>
               </ul>
             </li>
           
