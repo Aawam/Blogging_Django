@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-
+{% load i18n %}
+{% load socialaccount %}
 
 {% block title %}
-    Login User
+    {% trans "Login User" %}
 {% endblock title %}
 
 
 {% block content %}
 <div class="main container container-fluid">
     <h2 class="header-blog">
-        Login User
+        {% trans "Login User" %}
     </h2>
     
     <!-- Create a Form -->
@@ -33,11 +34,15 @@
             <li class="nav-item"></li>
             <li class="nav-item">
                 <a href="{% url 'home' %}" class="btn btn-outline-danger">
-                    Go Back
+                    {% trans "Go Back" %}
                 </a>
             </li>
         </ul>
     </form>
+
+    <h2>{% trans "Or login with" %}</h2>
+    {% providers_media_js %}
+    {% include "socialaccount/snippets/provider_list.html" %}
 </div>
 {% endblock content %}
     

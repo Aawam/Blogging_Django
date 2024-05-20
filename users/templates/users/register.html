@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-
+{% load i18n %}
 
 {% block title %}
     Create Users
@@ -10,7 +10,7 @@
 {% block content %}
 <div class="main container container-fluid">
     <h2 class="header-blog">
-        Create User
+        {% trans "Register" %}
     </h2>
     
     <!-- Create a Form -->
@@ -34,6 +34,11 @@
             </li>
         </ul>
     </form>
+    <br>
+    <p>
+        {% trans "Already have an account?" %}
+        <a href="{% url 'account_login' %}">{% trans "Log In" %}</a>
+    </p>
 </div>
 {% endblock content %}
     

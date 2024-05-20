@@ -11,7 +11,7 @@ from blog.models import Blog_Article
 
 #from .views import UserEditForm
 from .models import CustomUser
-from users.forms import CustomUserCreationForm
+from users.forms import CustomUserCreationForm, CustomUserChangeForm
 
 # Create your views here.
 
@@ -37,7 +37,7 @@ def register_view(request):
 
     if request.method == "POST":
         if form.is_valid():
-            login(request, form.save())
+            login(request, form.save(), backend='django.contrib.auth.backends.ModelBackend')
             return redirect("blog:article_list")
 
     else:
@@ -57,8 +57,9 @@ def user_view(request, pk):
         'user' : user
     }
 
-    return render(request, 'view_user.html', context=context)
+    return render(request, 'users/view_user.html', context=context)
 
+@login_required
 def delete_user(request, pk):
 
     user = get_object_or_404(CustomUser, pk=pk)
@@ -71,18 +72,24 @@ def delete_user(request, pk):
         'user' : user
     }
 
-    return render(request, 'confirm_delete.html', context=context)
+    return render(request, 'users/delete_user.html', context=context)
 
+@login_required
 def edit_user(request, pk):
     user = get_object_or_404(CustomUser, pk=pk)
     if request.method == 'POST':
-        form = UserCreationForm(request.POST, instance=user)
+        form = CustomUserChangeForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
-            return redirect('view_user', pk=user.pk)  # Redirect to the user's detail page
+            return redirect('users:edit_user', pk=user.pk )  # Redirect to the user's detail page
     else:
-        form = UserCreationForm(instance=user)
-    return render(request, 'edit_user.html', {'form': form})
+        form = CustomUserChangeForm(instance=user)
+
+    context = {
+        'form' : form
+    }
+
+    return render(request, 'users/edit_user.html', context=context)
 
 def login_view(request):
 
@@ -105,40 +112,27 @@ def login_view(request):
 
     return render(request, "users/login.html", context=context)
 
+@login_required
 def logout_view(request):
     if request.method == "POST":
         logout(request)
-        return redirect("blog:article_list")
+        return redirect("/users/logout")
+    
+    return render(request, "users/logout.html")
 
+@login_required
 def delete_user(request, pk):
-    # Get the user object
-    user = User.objects.get(pk=pk)
 
-    # Check if the logged-in user is the same as the user being deleted
-    if request.user == user:
-        # Delete the user
-        user.delete()
-        # Redirect to a success page or homepage
-        return redirect('home')  # Assuming 'home' is the name of your homepage URL
-    else:
-        # Return a forbidden response or handle unauthorized deletion
-        return render(request, 'forbidden.html', status=403)
-"""    
-def edit_user(request, pk):
-    # Fetch the user object
-    user = get_object_or_404(User, pk=pk)
+    user = get_object_or_404(CustomUser, pk=pk)
 
     if request.method == 'POST':
-        # Populate the form with the user's current data
-        form = UserEditForm(request.POST, instance=user)
-        if form.is_valid():
-            # Save the changes
-            form.save()
-            # Redirect to a success page or profile page
-            return redirect('profile')  # Assuming 'profile' is the name of your profile page URL
-    else:
-        # Populate the form with the user's current data
-        form = UserEditForm(instance=user)
+        user.delete()
+        logout(request)
+        return redirect('users/logout')
     
-    # Render the form
-    return render(request, 'edit_user.html', {'form': form})"""
+    return render(request, 'users/delete_user.html')
+
+@login_required
+def pass_change(request):
+
+    return render(request, 'users/pass_change.html')

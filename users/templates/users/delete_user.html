@@ -1,13 +1,28 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
-
+{% load i18n %}
 
 {% block title %}
-    Login User
+    {% trans "Delete Account Confirmation" %}
 {% endblock title %}
 
-
 {% block content %}
-
-
+<div class="main container container-fluid">
+    <h2 class="header-blog">
+        {% trans "Delete Account Confirmation" %}
+    </h2>
+    <p>{% trans "Are you sure you want to delete your account? This action cannot be undone." %}</p>
+    <form method="POST" action="{% url 'users:delete_user' pk=user.pk%}">
+        {% csrf_token %}
+        <ul class="nav nav-pills nav-fill">
+            <li class="nav-item">
+                <input class="btn btn-outline-danger" type="submit" value="{% trans "Delete" %}">
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'home' %}" class="btn btn-outline-secondary">
+                    {% trans "Cancel" %}
+                </a>
+            </li>
+        </ul>
+    </form>
+</div>
 {% endblock content %}

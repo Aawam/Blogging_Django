@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, PermissionsMixin
+from .manager import UserManager
 
 # Create your models here.
 
@@ -21,5 +22,11 @@ class CustomUser(AbstractUser):
     photo = models.ImageField(upload_to='user_photos/', blank=True)
     about = models.TextField(blank=True)
 
+    objects = UserManager()
+
+    # Email login
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+    
     def __str__(self):
         return self.username
