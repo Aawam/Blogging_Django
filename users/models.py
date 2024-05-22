@@ -7,9 +7,9 @@ from .manager import UserManager
 class CustomUser(AbstractUser):
 
     GENDER_CHOICES = [
-        ('male', 'Male'),
-        ('female', 'Female'),
-        ('other', 'Other')
+        ('Male', 'Male'),
+        ('Female', 'Female'),
+        ('Other', 'Other')
     ]
 
     username = models.CharField(primary_key=True, max_length=100)

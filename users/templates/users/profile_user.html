@@ -1,0 +1,42 @@
+<!doctype html>
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+    Your Profile
+{% endblock title %}
+
+
+{% block content %}
+<div>
+    <h2 class="header-blog">
+        Profile {{ user.username }}
+    </h2>
+
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Personal Information</h5>
+                {% if user.profile.photo %}
+                    <img src="{{ user.profile.photo.url }}" class="img-thumbnail" alt="{{ user.username }}">
+                {% else %}
+                    <br>
+                    <a> This user is not yet put a photo</a>
+                    <br>
+                    <br>
+                {% endif %}
+                <p class="card-text"><strong>Username:</strong> {{ user.username }}</p>
+                <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+                <p class="card-text"><strong>Full Name:</strong> {{ user.full_name }}</p>
+                <p class="card-text"><strong>Gender:</strong> {{ user.gender }}</p>
+                <p class="card-text"><strong>Phone Number:</strong> {{ user.phone_number }}</p>
+                <p class="card-text"><strong>Bio:</strong> {{ user.about }}</p>
+                <a href="{% url 'users:edit_user' pk=user.pk %}" class="btn btn-primary">Edit Profile</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

@@ -11,45 +11,27 @@ from blog.models import Blog_Article
 
 #from .views import UserEditForm
 from .models import CustomUser
-from users.forms import CustomUserCreationForm, CustomUserChangeForm
+from users.forms import CustomUserSignupForm, CustomUserChangeForm
 
 # Create your views here.
 
 @login_required(login_url="/users/login")
-def dashboard_view(request):
-    
+def dashboard_view(request, pk):
     user = request.user
+    # Assuming pk is the user's pk and not for an article
+    if user.pk != pk:
+        return redirect('/users/login')
+
+    # Get all articles authored by the user
     user_articles = Blog_Article.objects.filter(author=user)
 
-    # If the user has authored at least one article, redirect to the articles page
-    if not user.exists():
-        return redirect('/users/login')
-    
     context = {
-        'user_articles' : user_articles
+        'user_articles': user_articles
     }
-    # If the user has not authored any articles, render the dashboard template
-    return render(request, "users/dashboard.html", context=context)
-
-def register_view(request):
     
-    form = CustomUserCreationForm(request.POST)
+    return render(request, "users:dashboard.html", context=context)
 
-    if request.method == "POST":
-        if form.is_valid():
-            login(request, form.save(), backend='django.contrib.auth.backends.ModelBackend')
-            return redirect("blog:article_list")
-
-    else:
-        form = CustomUserCreationForm()
-
-    context = {
-        "form" : form
-    }
-
-    return render(request, "users/register.html", context=context)
-
-def user_view(request, pk):
+def profile_user(request, pk):
 
     user = get_object_or_404(CustomUser, pk=pk)
 
@@ -57,7 +39,8 @@ def user_view(request, pk):
         'user' : user
     }
 
-    return render(request, 'users/view_user.html', context=context)
+    return render(request, 'users:profile_user.html', context=context)
+
 
 @login_required
 def delete_user(request, pk):
@@ -91,6 +74,7 @@ def edit_user(request, pk):
 
     return render(request, 'users/edit_user.html', context=context)
 
+"""
 def login_view(request):
 
     form = AuthenticationForm(data=request.POST)
@@ -135,4 +119,4 @@ def delete_user(request, pk):
 @login_required
 def pass_change(request):
 
-    return render(request, 'users/pass_change.html')
+    return render(request, 'users/pass_change.html')"""

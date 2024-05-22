@@ -196,5 +196,14 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_USERNAME_REQUIRED = True
-LOGIN_REDIRECT_URL = "/"  # Redirect after successful login
-LOGOUT_REDIRECT_URL = "article/"  # Redirect after logout
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/" 
+
+# settings.py
+ACCOUNT_FORMS = {
+    'signup': 'users.forms.CustomUserCreationForm',
+    'login': 'users.forms.CustomUserLoginForm',
+}
+
+
+
