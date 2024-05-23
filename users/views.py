@@ -11,7 +11,7 @@ from blog.models import Blog_Article
 
 #from .views import UserEditForm
 from .models import CustomUser
-from users.forms import CustomUserSignupForm, CustomUserChangeForm
+from .forms import CustomUserChangeForm
 
 # Create your views here.
 

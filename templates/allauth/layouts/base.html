@@ -1,21 +1,22 @@
 {% load i18n %}
 
 <!DOCTYPE html>
+
 <html lang="en">
+
+
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Your Site Title{% endblock %}</title>
     {% block extra_head %}
+
     {% endblock extra_head %}
 </head>
+
 <body>
     {% block body %}
-        {# Navbar section #}
-        {% include 'components/navbar.html' %}
-        {# End navbar section #}
-
         {# Messages section #}
-        {% if messages %}
+            {% if messages %}
             <div>
                 <strong>{% trans "Messages:" %}</strong>
                 <ul>
@@ -24,42 +25,30 @@
                     {% endfor %}
                 </ul>
             </div>
-        {% endif %}
+            {% endif %}
         {# End messages section #}
 
         {# Menu section #}
-        <div>
-            <strong>{% trans "Menu:" %}</strong>
-            <ul>
-                {% if user.is_authenticated %}
-                    <li>
-                        <a href="{% url 'account_email' %}">{% trans "Change Email" %}</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
-                    </li>
-                {% else %}
-                    <li>
-                        <a href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
-                    </li>
-                {% endif %}
-            </ul>
-        </div>
+        {% include 'components/navbar.html' %}
         {# End menu section #}
 
         {# Content block #}
-        {% block content %}
-        {% endblock content %}
+
+            {% block content %}
+            
+            {% endblock content %}
+
         {# End content block #}
 
     {% endblock body %}
 
     {# Extra body block #}
-    {% block extra_body %}
-    {% endblock extra_body %}
+    
+        {% block extra_body %}
+    
+        {% endblock extra_body %}
+
     {# End extra body block #}
 </body>
+
 </html>

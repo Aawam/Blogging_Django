@@ -31,9 +31,11 @@
             
             {% slot body %}
                 {% csrf_token %}
+
                 {% element fields form=form unlabeled=True %}
                 {{ form | crispy }}
                 {% endelement %}
+
                 {{ redirect_field }}
             {% endslot %}
             
@@ -43,7 +45,13 @@
                 {% endelement %}
             {% endslot %}
         {% endelement %}
+
+        {% if SOCIALACCOUNT_ENABLED %}
+        {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+        {% endif %}
+
     {% endif %}
+    
     {% if LOGIN_BY_CODE_ENABLED %}
         {% element hr %}
         {% endelement %}
@@ -53,7 +61,5 @@
             {% endelement %}
         {% endelement %}
     {% endif %}
-    {% if SOCIALACCOUNT_ENABLED %}
-        {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
-    {% endif %}
+    
 {% endblock content %}

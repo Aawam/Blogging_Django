@@ -4,7 +4,7 @@ from allauth.account.forms import SignupForm, LoginForm
 
 from .models import CustomUser
 
-class CustomUserSignupForm(SignupForm):
+class CustomUserCreationForm(SignupForm):
     username = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class': 'form-control'}))
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
     full_name = forms.CharField(max_length=100, label='Full Name', widget=forms.TextInput(attrs={'class': 'form-control'}))
@@ -16,7 +16,7 @@ class CustomUserSignupForm(SignupForm):
     about = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
 
     def save(self, request):
-        user = super(CustomUserSignupForm, self).save(request)
+        user = super(CustomUserCreationForm, self).save(request)
         user.full_name = self.cleaned_data['full_name']
         user.gender = self.cleaned_data['gender']
         user.phone_number = self.cleaned_data['phone_number']
