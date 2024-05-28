@@ -88,7 +88,7 @@ def article_create(request):
 
         print(form.is_valid())
         if form.is_valid():
-            blog_article = form.save(commit=False)
+            blog_article = form.save(commit=True)
             blog_article.author = request.user
             blog_article.save()
             return redirect('/article/')

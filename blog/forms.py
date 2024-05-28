@@ -1,6 +1,8 @@
 from django import forms
 from .models import *
 
+from django_ckeditor_5.widgets import CKEditor5Widget
+
 class Category_Form(forms.ModelForm):
     class Meta:
         model = Category
@@ -18,21 +20,23 @@ class Tag_Form(forms.ModelForm):
         }
 
 class Blog_Form(forms.ModelForm):
-    
     class Meta:
         model = Blog_Article
+        
 
         fields = [
             'title',
             'categories',
             'tags',
-            'content',
+            'text',
         ]
 
         widgets = {
             'tags' : forms.CheckboxSelectMultiple,
             'categories' : forms.Select,
-            'content' : forms.Textarea
+            "text": CKEditor5Widget(
+                  attrs={"class": "django_ckeditor_5"}, config_name="extends"
+              )
         }
 
         exclude = [
